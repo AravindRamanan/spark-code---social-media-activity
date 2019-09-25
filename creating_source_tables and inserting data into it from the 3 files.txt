@@ -1,0 +1,57 @@
+METADATA TABLE
+
+drop table aravindr.customer_data ;
+
+Create external table if not exists aravindr.customer_data 
+(
+Userid STRING,
+Name STRING,
+City STRING,
+Email STRING,
+Gender STRING
+)
+PARTITIONED BY (data_dt STRING)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY '~'
+STORED AS TEXTFILE
+tblproperties("skip.header.line.count"="1");
+
+
+
+Create external table if not exists aravindr.facebook_feeds
+(id  STRING,
+Appid  STRING,
+Appkey  STRING,
+facebook_feed  STRING,
+google_place_id  STRING,
+mac_id  STRING,
+imageURL  STRING,
+emotions  STRING,
+latitude  STRING,
+longitude STRING)
+PARTITIONED BY (data_dt STRING)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY '~'
+STORED AS TEXTFILE
+tblproperties("skip.header.line.count"="1");
+
+
+
+Create external table if not exists aravindr.twitter_tweets
+(id  STRING,
+tweets  STRING,
+google_place_id  STRING,
+system_mac_id  STRING,
+longitude  STRING,
+latitude  STRING,
+date_posted  STRING,
+country  STRING,
+city STRING)
+PARTITIONED BY (data_dt STRING)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY '~'
+STORED AS TEXTFILE
+tblproperties("skip.header.line.count"="1");
+
+alter table aravindr.facebook_feeds add partition (data_dt="2019-06-01");
+alter table aravindr.twitter_tweets add partition (data_dt="2019-06-01");
